@@ -1,0 +1,308 @@
+<!DOCTYPE html><html><meta charset="UTF-8"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta name=theme-color content=#1a1a2e><title>DataCache</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a1a2e;color:#e0e0e0;display:flex;flex-direction:column;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100dvh}
+#a{display:flex;flex:1;flex-direction:column;margin:0 auto;max-width:640px;padding:1rem;width:100%}
+h1{color:#e94560;font-size:1.5rem;font-weight:300;letter-spacing:.15em;padding:.5rem 0 .75rem;text-align:center}
+.n{display:flex;gap:.25rem;justify-content:center;margin-bottom:.5rem}
+.n button{background:#16213e;border:1px solid #2a2a4a;border-radius:4px;color:#a0a0c0;cursor:pointer;font-size:.85rem;padding:.4rem 1rem;transition:.2s}
+.n button.a{background:#e94560;border-color:#e94560;color:#fff}
+.n button:hover:not(.a){background:#2a2a4a;color:#e0e0e0}
+.q{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:.5rem}
+.q button{background:none;border:1px solid #2a2a4a;border-radius:4px;color:#8888aa;cursor:pointer;font-size:.75rem;padding:.3rem .7rem;transition:.2s}
+.q button:hover{border-color:#e94560;color:#e0e0e0}
+.v{display:none;flex:1;flex-direction:column;gap:.75rem;padding:.5rem 0}
+.v.a{display:flex}
+.s{background:#16213e;border:1px solid #2a2a4a;border-radius:8px;display:flex;flex-direction:column;gap:.5rem;justify-content:center;align-items:center;min-height:120px;padding:1.5rem;text-align:center}
+.s .i{font-size:2rem;margin-bottom:.25rem}
+.s .t{font-size:1.1rem;font-weight:500}
+.s .c{color:#8888aa;font-size:.85rem}
+.b{background:#e94560;border:none;border-radius:4px;color:#fff;cursor:pointer;font-size:.9rem;padding:.5rem 1.2rem;transition:.2s}
+.b:hover{opacity:.85}
+.bs{font-size:.8rem;padding:.3rem .8rem}
+.f{background:#16213e;border:1px solid #2a2a4a;border-radius:8px;padding:1rem}
+.f l{color:#8888aa;display:block;font-size:.8rem;margin-bottom:.3rem}
+.w{font-family:monospace;font-size:.85rem;line-height:1.4;word-break:break-all}
+.d{border:2px dashed #2a2a4a;border-radius:8px;cursor:pointer;padding:2rem;text-align:center;transition:.2s}
+.d:hover,.d.o{background:#16213e;border-color:#e94560}
+.d .i{font-size:2.5rem;margin-bottom:.5rem}
+.d p{color:#8888aa;font-size:.9rem}
+#i2{background:#0f3460;border-radius:4px;display:none;font-size:.85rem;margin-top:.5rem;padding:.5rem}
+#i2 .r{display:flex;justify-content:space-between;padding:.15rem 0}
+#i2 .r s:first-child{color:#8888aa}
+#q{display:none;justify-content:center;padding:.5rem 0}
+#qc{width:100%;max-width:640px;image-rendering:pixelated}
+.c{display:flex;gap:.5rem}
+.c input{background:#0f0f1f;border:1px solid #2a2a4a;border-radius:4px;color:#e0e0e0;flex:1;font-family:monospace;font-size:.75rem;padding:.5rem}
+.u{display:flex;gap:.5rem}
+.u input{background:#0f0f1f;border:1px solid #2a2a4a;border-radius:4px;color:#e0e0e0;flex:1;font-family:monospace;font-size:.8rem;padding:.6rem}
+.u input::placeholder{color:#555577}
+.p{animation:s .8s linear infinite;border:3px solid #2a2a4a;border-radius:50%;border-top-color:#e94560;height:24px;margin:.5rem auto;width:24px}
+@keyframes s{to{transform:rotate(360deg)}}
+.ok{color:#4ecca3}.er{color:#e94560}
+.at{color:#b0b0c0;font-size:.85rem;line-height:1.6}
+.at h3{color:#e94560;font-size:1rem;margin:.75rem 0 .3rem}
+.at p{margin:.3rem 0}
+.at ul{list-style:none;margin:.3rem 0;padding:0}
+.at li{padding:.15rem 0;padding-left:1.2rem;position:relative}
+.at li::before{color:#e94560;content:'\2022';left:.3rem;position:absolute}
+</style>
+<div id=a><h1>DataCache</h1>
+<div class=n><button data-v=d class=a>Decode</button><button data-v=e>Encode</button><button data-v=a>About</button></div>
+<div class=q><button id=dh>Download Page</button><button id=pi hidden>Install App</button></div>
+<section id=vd class="v a"><div class=u><input id=du placeholder="Paste a DataCache URL or #v=1.... fragment here"><button class=b id=db>Decode</button></div>
+<div id=ds class=s><div class=i id=di>🔗</div><div class=t id=dt>Ready</div><div class=c id=dsb>Paste a DataCache link above or open one directly</div></div>
+<div id=dm class=f style=display:none><div><l>Filename</l><div class=w id=df>-</div></div><div style="margin-top:.4rem"><l>Size</l><div class=w id=d2>-</div></div></div>
+<div id=da style="display:none;text-align:center;gap:.5rem;flex-direction:column;align-items:center"><button class=b id=dd>Download</button><div id=dr style="display:none;margin-top:.5rem"><a href=# id=rl>Encode a file instead</a></div></div></section>
+<section id=ve class=v><div class=d id=dz><div class=i>📁</div><p>Choose a file or drag it here (4KB max)</p><input type=file id=fi style=display:none></div>
+<div id=i2><div class=r>File<span id=en>-</span></div><div class=r>Size<span id=es>-</span></div><div class=r>Type<span id=et>-</span></div></div>
+<div style="padding:.5rem 0"><l>Base URL</l><input id=bu value="http://datacache.github.io" style="background:#0f0f1f;border:1px solid #2a2a4a;border-radius:4px;color:#e0e0e0;font-family:monospace;font-size:.75rem;padding:.3rem .5rem;width:100%"></div>
+<div id=ep style=display:none class=s><div class=p></div><div class=b>Encoding...</div></div>
+<div id=er style=display:none><div class=f><l>Generated Link</l><div class=c><input id=el readonly onclick=this.select()><button class="b bs" id=cb title="Copy to clipboard">Copy</button></div></div><div id=q><canvas id=qc></canvas></div></div></section>
+<section id=va class=v><div class=f><div class=at>
+<h3>What is DataCache?</h3>
+<p>Need to encode a file onto paper? Want a Link that won't decay when it stops being hosted? Looking for an easy way to transfer small files to your phone? DataCache is a minimal, Offline-capable web app that encodes files into shareable URLs and decodes them back without any servers or third parties.</p>
+<h3>How it works</h3>
+<p><strong>Decode:</strong> Open a link with <code>#v=1.payload</code> to extract and download the file.</p>
+<p><strong>Encode:</strong> Drop a file to compress, wrap with metadata, and generate a shareable link with QR code.</p>
+<h3>Manual decoding</h3>
+<ul><li>1. Copy the payload after `#v=1.` from the URL</li><li>2. Replace `-` with `+` and `_` with `/`, then pad with `=` to multiple of 4</li><li>3. `base64 -d` to get the plaintext — it's 6 lines: version, filename, mime, compression, data, checksum</li><li>4. Take line 5 (the data), repeat the base64url fix, then `base64 -d | gunzip > output`</li></ul>
+<h3>Security</h3>
+<ul><li>All processing is local</li><li>No data uploaded</li><li>SHA-256 checksums</li></ul>
+<h3>Version</h3>
+<p>Payload format v1</p>
+</div></div></section>
+</div>
+<script>
+/**
+ * lean-qr (nano) — standalone browser bundle
+ * Minimal QR code generation (ISO 18004), ~4KB uncompressed
+ * Original library: https://github.com/davidje13/lean-qr (MIT)
+ */
+(function(g){
+'use strict';
+var u=function(n){return new Uint8Array(n)};
+var f=function(c){var e=new Error('lean-qr error '+c);e.code=c;throw e};
+var E1=1,E4=4,E5=5;
+
+// Galois field GF(256) modulo 285
+var L=u(511);
+for(var i=0,v=1;i<255;v=(v*2)^((v>127)*285))L[(L[v+255]=i++)]=v;
+function e(x){return L[x%255]}
+function ln(x){return L[x+255]}
+
+function mul(p,q){
+  var r=u(p.length+q.length-1);
+  for(var i=0;i<p.length;i++)for(var j=0;j<q.length;j++)r[i+j]^=e(p[i]+q[j]);
+  return r.map(ln);
+}
+
+function rem(num,den){
+  var r=u(num.length+den.length-1);
+  r.set(num,0);
+  for(var i=0;i<num.length;i++)if(r[i]){
+    var s=ln(r[i]);
+    for(var j=0;j<den.length;j++)r[i+j]^=e(den[j]+s);
+  }
+  return r.slice(num.length);
+}
+
+// Generator polynomials for EC sizes 0..30
+var GP=[[0],[0,0]];
+for(var i=1;i<30;i++)GP.push(mul(GP[i],[0,i]));
+
+function calcEC(bytes,cor){
+  var bl=[[],[]],p=0,sz=0;
+  for(var k=0;k<cor._groups.length;k++){
+    var g=cor._groups[k],n=g[0],b=g[1];
+    for(var i=0;i<n;i++,p+=b){
+      var blk=bytes.slice(p,p+b);
+      bl[0].push(blk);
+      bl[1].push(rem(blk,GP[cor._ecSize]));
+      sz+=b+cor._ecSize;
+    }
+  }
+  var r=u(sz);sz=0;
+  for(var k=0;k<bl.length;k++)for(var i=0,pr=-1;pr<sz;i++){
+    pr=sz;
+    for(var j=0;j<bl[k].length;j++)if(i<bl[k][j].length)r[sz++]=bl[k][j][i];
+  }
+  return r;
+}
+
+// Correction data (compressed from ISO 18004 tables)
+var CD="*-04-39?2$%%$%%'$%''%'''%')(%'))%(++'(++'(+.'+-.',/3',33)-/5)-43).36)058*18<+37<+4:<,4:E,5<A-7>C/8@F/:EH/<EK0=FM1?IP2@KS3BNV4DPY5FS\\6HV_6IXb7K[e8N^i9Pam;Rdp<Tgt";
+var ER=[1/5,3/8,5/9,2/3];
+function corData(ver,tot,cl){
+  var p=ver*4-4+cl,d=CD.charCodeAt(p)-35,gr=p>8?d:1,gs=(tot/gr)|0,g2=tot%gr,g1=gr-g2,ec;
+  ec=p>8?(gs*ER[cl]+(ver>5))&~1:d;
+  return {_capacityBytes:g1*(gs-ec)+(g2*(gs-ec)+g2),_groups:[[g1,gs-ec],[g2,gs-ec+1]],_ecSize:ec};
+}
+
+// Masks
+var MS=[
+  function(x,y){return(x^y)&1},
+  function(x,y){return y&1},
+  function(x){return x%3},
+  function(x,y){return(x+y)%3},
+  function(x,y){return((x/3)^(y>>1))&1},
+  function(x,y){return(x&y&1)+((x*y)%3)},
+  function(x,y){return((x&y)+((x*y)%3))&1},
+  function(x,y){return((x^y)+((x*y)%3))&1}
+];
+
+// Scoring
+var SI=0b10000000000_10000000000,SP=0b10111010000_00001011101,SM=0b00000000001_00000000001;
+function score(sz,d){
+  var sc=0,on=0;
+  for(var i=0;i<sz;i++){var t=0;while(t<2){
+    for(var j=0,st=0,co=0,la=2;j<sz;j++){
+      var cu=d[t?i*sz+j:j*sz+i]&1;on+=cu;
+      st=((st>>1)|SI)&(SP^(cu-1));
+      if(st&SM)sc+=40;
+      if(cu^la)co=0;la=cu;
+      sc+=++co===5?3:(co>5);
+    }t++;
+  }
+  if(i){for(var j=sz+i,la=(d[i-1]*5)^d[i];j<sz*sz;j+=sz){
+    var cu=(d[j-1]*5)^d[j];
+    sc+=!(((la|cu)&1)|((la^cu)&4))*3;la=cu;
+  }}
+  }
+  return sc+((10*Math.abs(on/(sz*sz)-1))|0)*10;
+}
+
+// Draw frame
+function rbp(num,den,dbm){
+  num<<=dbm;var r=num;
+  for(var i=0x8000000;(i>>=1);)if(r&i)r^=den*(i>>dbm);
+  return r|num;
+}
+
+function drawFrame(bit,ver){
+  var sz=bit.size,d=bit._data;
+  function rect(p,w,h,v){for(;h-- >0;p+=sz)d.fill(v,p,p+w)}
+  function align(x,y,di){for(var n=0;n++<3;di-=2)rect(y*sz+x-(di>>1)*(sz+1),di,di,n|2)}
+  var na=(ver/7|0)+1,sa=(((sz-13)/na/2+0.75)|0)*2;
+  if(ver>1){for(var i=sz-7;i>8;i-=sa){for(var j=i;j>8;j-=sa)align(i,j,5);if(i<sz-7)align(i,6,5);}}
+  if(ver>6){for(var dat=rbp(ver,0b1111100100101,12),j=1;j<7;j++)for(var i=12;i-- >9;dat>>=1)d[j*sz-i]=2|(dat&1)}
+  rect(7,2,9,2);rect(sz-8,8,9,2);
+  for(var i=0;i<sz;i++)d[6*sz+i]=3^(i&1);
+  align(3,3,7);align(sz-4,3,7);
+  for(var j=0;j<sz;j++)for(var i=j;i<sz;i++)d[i*sz+j]=d[j*sz+i];
+  d[(sz-8)*sz+8]=3;
+}
+
+function getPath(bit){
+  var sz=bit.size,d=bit._data,r=[];
+  for(var xb=sz-2,y=sz,dy=-1;xb>=0;xb-=2){
+    if(xb===5)xb=4;
+    while((y+=dy),y!==-1&&y!==sz){
+      var p=y*sz+xb;
+      if(!d[p+1])r.push(p+1);
+      if(!d[p])r.push(p);
+    }
+    dy*=-1;
+  }
+  return r;
+}
+
+function drawCode(d,path,data){path.forEach(function(p,bit){d[p]=(data[bit>>3]>>>(~bit&7))&1})}
+
+function applyMask(bit,mask,mId,ec){
+  var sz=bit.size,d=bit._data;
+  for(var j=0;j<sz;j++)for(var i=0;i<sz;i++){var p=j*sz+i;d[p]^=!(mask(i,j)||d[p]&2)}
+  var info=((ec^1)<<3)|mId,pat=0b101010000010010^rbp(info,0b10100110111,10);
+  for(var i=0;i++<8;pat>>=1){d[(i-(i<7))*sz+8]=pat&1;d[9*sz-i]=pat&1}
+  for(var i=8;--i;pat>>=1){d[8*sz+i-(i<7)]=pat&1;d[(sz-i)*sz+8]=pat&1}
+}
+
+// Bitmap2D (nano: no toString, no toDataURL)
+function Bitmap2D(sz,src){
+  var d=u(src===undefined?sz*sz:src);
+  return {
+    size:sz,_data:d,
+    get:function(x,y){return x>=0&&x<sz&&!!(d[y*sz+x]&1)},
+    toImageData:function(ctx,opt){
+      opt=opt||{};var on=opt.on||[0,0,0],off=opt.off||[0,0,0,0];
+      var px=opt.padX||opt.pad||4,py=opt.padY||opt.pad||4;
+      var fx=sz+px*2,fy=sz+py*2,img=ctx.createImageData(fx,fy);
+      var ab=new Uint32Array(img.data.buffer),cOn,cOff;
+      img.data.set([].concat(on,[255]));cOn=ab[0];
+      img.data.set([].concat(off,[255]));cOff=ab[0];
+      for(var y=0;y<fy;y++)for(var x=0;x<fx;x++)ab[y*fx+x]=this.get(x-px,y-py)?cOn:cOff;
+      return img;
+    },
+    toCanvas:function(can,opt){
+      var ctx=can.getContext('2d'),data=this.toImageData(ctx,opt);
+      can.width=data.width;can.height=data.height;ctx.putImageData(data,0,0);
+    }
+  };
+}
+
+// Generate (nano: UTF-8 only, TextEncoder required)
+function gen(content,opt){
+  if(typeof content!=='string')f(E5);
+  opt=opt||{};
+  var cl=opt.minCorrectionLevel||0,mv=opt.minVersion||1;
+  var enc=new TextEncoder().encode(content),cnt=enc.length,data=u(2957);
+  for(var ver=mv;ver<41;ver++){
+    var base=cache[ver];
+    if(!base){base=Bitmap2D(ver*4+17);drawFrame(base,ver);base.p=getPath(base);cache[ver]=base}
+    var cor=corData(ver,base.p.length>>3,cl);
+    if(cor._capacityBytes>=3+(ver>9)+cnt){
+      var b=0,i=0;
+      function pb(w,l){for(var j=l-1;j>=0;j--){b=b*2+((w>>j)&1);if(++i%8==0){data[i/8-1]=b;b=0}}}
+      pb(4,4);pb(cnt,ver>9?16:8);
+      for(var j=0;j<cnt;j++)pb(enc[j],8);
+      if(i%8)data[i>>3]=b<<(8-(i%8));
+      var p=(i+7)/8|0;
+      for(;p<2954;data.set([0b11101100,0b00010001],(p+=2)));
+      var code=Bitmap2D(base.size,base._data);
+      drawCode(code._data,base.p,calcEC(data,cor));
+      for(var mi=0,best,bestScore=Infinity;mi<8;mi++){
+        var m=Bitmap2D(code.size,code._data);
+        applyMask(m,MS[mi],mi,cl);m.s=score(m.size,m._data);
+        if(m.s<bestScore){bestScore=m.s;best=m}
+      }
+      return best;
+    }
+  }
+  f(E4);
+}
+var cache=[];
+
+g.LeanQR={generate:gen,correction:{L:0,M:1,Q:2,H:3}};
+})(window);
+</script>
+<script>
+const B={e:u=>btoa(u).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''),d:s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');const r=s.length%4;r&&(s+='===='.slice(0,4-r));return atob(s)},eb:b=>{const a=new Uint8Array(b);let s='';for(let i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')},db:s=>{s=s.replace(/-/g,'+').replace(/_/g,'/');const r=s.length%4;r&&(s+='===='.slice(0,4-r));const bin=atob(s),l=bin.length,b=new Uint8Array(l);for(let i=0;i<l;i++)b[i]=bin.charCodeAt(i);return b}};
+const H=async d=>{const h=await crypto.subtle.digest('SHA-256',d instanceof Uint8Array?d:new TextEncoder().encode(d));return Array.from(new Uint8Array(h)).map(b=>b.toString(16).padStart(2,'0')).join('')};
+const C=async d=>{const s=new CompressionStream('gzip'),w=s.writable.getWriter();w.write(d);w.close();return new Response(s.readable).arrayBuffer()};
+const D=async d=>{const s=new DecompressionStream('gzip'),w=s.writable.getWriter();w.write(d);w.close();return new Response(s.readable).arrayBuffer()};
+const F=n=>{const u=['B','KB','MB','GB'];let i=0;for(;n>=1024&&i<3;n/=1024,i++);return n.toFixed(i<2?0:1)+' '+u[i]};
+const $=s=>document.querySelector(s);const G=s=>document.getElementById(s);
+const V=s=>{$('.v.a').classList.remove('a');G(s).classList.add('a');$('.n button.a').classList.remove('a');$('.n button[data-v="'+s[1]+'"]').classList.add('a')};
+function EF(i){if(!i||!i.trim())return null;i=i.trim();if(i.startsWith('#'))return i.slice(1);try{var u=new URL(i);if(u.hash)return u.hash.slice(1)}catch(e){}if(i.startsWith('v=1.'))return i;if(/^[A-Za-z0-9\-_]+$/.test(i)&&i.length>20)return i;return null}
+async function EP(f){const b=await f.arrayBuffer();const c=await C(new Uint8Array(b));const cb=B.eb(new Uint8Array(c));const nb=B.e(f.name);const mb=B.e(f.type||'application/octet-stream');const ch=await H(new Uint8Array(c));const p='v=1\n'+nb+'\n'+mb+'\ngzip\n'+cb+'\n'+ch;const e=B.e(p);return{payload:e,filename:f.name,size:f.size,type:f.type}}
+function DP(e){const r=B.d(e);const l=r.split('\n');if(l.length<6||l[0]!=='v=1')throw new Error('!ver');return{version:1,name:B.d(l[1]),mime:B.d(l[2]),compression:l[3],data:B.db(l[4]),checksum:l[5]}}
+const di=G('di'),dt=G('dt'),dsb=G('dsb'),dm=G('dm'),da=G('da'),df=G('df'),d2=G('d2'),dr=G('dr'),dd=G('dd'),dz=G('dz'),fi=G('fi'),i2=G('i2'),en=G('en'),es=G('es'),et=G('et'),ep=G('ep'),er=G('er'),el=G('el'),cb=G('cb'),q=G('q'),qc=G('qc'),dh=G('dh'),pi=G('pi'),bu=G('bu');let pB=null,pN='',pM='';let bUrl='https://decoder.example';try{bUrl=localStorage.getItem('dcBaseUrl')||bUrl}catch(e){}bu.value=bUrl;
+async function DD(h){dm.style.display='none';da.style.display='none';da.style.flexDirection='column';di.textContent='...';dt.textContent='Preparing download...';dsb.textContent='';dsb.className='c';dr.style.display='none';try{if(!h||!h.startsWith('v=1.'))throw new Error('!link');const e=h.slice(4);const p=DP(e);if(p.compression!=='gzip')throw new Error('!comp');const ch=await H(new Uint8Array(p.data));if(ch!==p.checksum)throw new Error('!chk');const dc=await D(p.data);const bl=new Blob([dc],{type:p.mime});pB=bl;pN=p.name;pM=p.mime;const sz=dc.byteLength;di.textContent='OK';di.className='ok';dt.textContent='Download started.';dt.className='ok';df.textContent=p.name;d2.textContent=F(sz);dm.style.display='block';dd.onclick=()=>DL(pB,pN,pM);da.style.display='flex';try{DL(pB,pN,pM)}catch(e){dsb.textContent='Auto-download blocked. Use the button below.';dsb.className='c'}}catch(e){di.textContent='X';di.className='er';dt.textContent='Unable to decode file.';dt.className='er';dsb.textContent=e.message||'!inv';dsb.className='c er';dr.style.display='block'}}
+function DL(blob,name,mime){const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},1e3)}
+G('db').onclick=()=>{const i=G('du').value;const f=EF(i);if(!f){di.textContent='X';di.className='er';dt.textContent='Invalid link';dt.className='er';dsb.textContent='Could not find a valid DataCache payload in that text';dsb.className='c er';return}DD(f)};
+G('du').addEventListener('keydown',e=>{if(e.key==='Enter')G('db').click()});
+let eF=null;dz.onclick=()=>fi.click();fi.onchange=e=>{if(e.target.files.length)HF(e.target.files[0])};dz.ondragover=e=>{e.preventDefault();dz.classList.add('o')};dz.ondragleave=()=>dz.classList.remove('o');dz.ondrop=e=>{e.preventDefault();dz.classList.remove('o');if(e.dataTransfer.files.length)HF(e.dataTransfer.files[0])};
+async function HF(f){eF=f;en.textContent=f.name;es.textContent=F(f.size);et.textContent=f.type||'application/octet-stream';i2.style.display='block';er.style.display='none';ep.style.display='flex';if(f.size>4096){alert('File too large. Maximum size is 4KB.');ep.style.display='none';return}DE(f)}
+async function DE(f){ep.style.display='flex';er.style.display='none';try{const r=await EP(f);const u=bUrl+'#v=1.'+r.payload;ep.style.display='none';el.value=u;er.style.display='block';q.style.display='flex';LeanQR.generate(u).toCanvas(qc,{on:[0,0,0,255],off:[255,255,255,255],pad:2})}catch(e){ep.style.display='none';alert('Encoding failed: '+e.message)}}
+cb.onclick=async()=>{try{await navigator.clipboard.writeText(el.value);cb.textContent='OK';setTimeout(()=>cb.textContent='Copy',2e3)}catch(e){el.select();document.execCommand('copy')}};
+document.querySelectorAll('.n button').forEach(b=>b.addEventListener('click',()=>{V('v'+b.dataset.v)}));
+G('rl').onclick=e=>{e.preventDefault();V('ve')};
+bu.oninput=()=>{bUrl=bu.value;try{localStorage.setItem('dcBaseUrl',bUrl)}catch(e){}if(el.value){const p=el.value.indexOf('#');if(p>-1){const u=bUrl+el.value.slice(p);el.value=u;q.style.display='flex';LeanQR.generate(u).toCanvas(qc,{on:[0,0,0,255],off:[255,255,255,255],pad:2})}}};
+if('serviceWorker'in navigator&&location.protocol!=='file:'){const sc='self.addEventListener("install",e=>{e.waitUntil(self.skipWaiting())});self.addEventListener("activate",e=>{e.waitUntil(self.clients.claim())});self.addEventListener("fetch",e=>{e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)))});';const sb=new Blob([sc],{type:'application/javascript'});const su=URL.createObjectURL(sb);navigator.serviceWorker.register(su,{scope:'/'}).catch(()=>{})}
+let pwd=null;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();pwd=e;pi.hidden=false;pi.textContent='Install App'});
+pi.onclick=async()=>{if(pwd){pwd.prompt();const r=await pwd.userChoice;if(r.outcome==='accepted')pi.hidden=true;pwd=null}else{alert('To install: open this page in a supported browser and look for Install in the browser menu.')}};
+dh.onclick=()=>{const h='<!DOCTYPE html>\n'+document.documentElement.outerHTML;const b=new Blob([h],{type:'text/html'});DL(b,'DataCache.html','text/html')};
+async function init(){const h=window.location.hash.slice(1);if(h){V('vd');DD(h)}else{V('vd')}if(!h)G('du').focus()}
+init();window.addEventListener('hashchange',()=>{const h=window.location.hash.slice(1);if(h){V('vd');DD(h)}});
+</script>
+</html>
