@@ -8,24 +8,14 @@ Need to encode a file onto paper? Want a link that won't decay when it stops bei
 
 **Decode:** Open a link with `#v=1.payload` to extract and download the file.
 
-**Encode:** Drop a file to compress it, wrap it with metadata, and generate a shareable link with a QR code.
+**Encode:** Drop a file (2KB max) to wrap it with metadata and generate a shareable link with a QR code.
 
 ### Manual decoding
 
 1. Copy the payload after `#v=1.` from the URL.
 2. Replace `-` with `+` and `_` with `/`, then pad with `=` until the length is a multiple of 4.
-3. Run `base64 -d` to get the plaintext. It contains 6 lines:
-   1. Version
-   2. Filename
-   3. MIME type
-   4. Compression
-   5. Data
-   6. Checksum
-4. Take line 5 (the data), repeat the Base64URL conversion, then run:
-
-   ```sh
-   base64 -d | gunzip > output
-   ```
+3. Run `base64 -d` to get the binary payload.
+4. Extract the file data: byte 0 = version (1), bytes 1-2 = filename length (little-endian), then filename, then MIME length (LE), then MIME, then file data, last 32 bytes = SHA-256 checksum. Save everything between the MIME and the checksum as your output file.
 
 ### Security
 
