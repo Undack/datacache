@@ -22,3 +22,9 @@ Need to encode a file onto paper? Want a link that won't decay when it stops bei
 - All processing is local.
 - No data is uploaded.
 - SHA-256 checksums are used.
+
+### Links
+
+- undack.github.io/datacache
+- eok6gmwhglwf5qwzict6nhy4dabnksae7u4ekmrctufcddbq65kqrnqd.onion
+- datacache.losingfoc.us
