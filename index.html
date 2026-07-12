@@ -66,9 +66,11 @@ h1{color:#e94560;font-size:1.5rem;font-weight:300;letter-spacing:.15em;padding:.
 <p><strong>Decode:</strong> Open a link with <code>#v=1.payload</code> to extract and download the file.</p>
 <p><strong>Encode:</strong> Drop a file to wrap with metadata and generate a shareable link with QR code.</p>
 <h3>Manual decoding</h3>
-<ul><li>1. Copy the payload after `#v=1.` from the URL</li><li>2. Replace `-` with `+` and `_` with `/`, then pad with `=` to multiple of 4</li><li>3. `base64 -d` to get the binary payload</li><li>4. Byte 0 = version (1), bytes 1-2 = filename length (LE), then filename, then mime length (LE), then mime, then file data, last 32 bytes = SHA-256 checksum</li></ul>
+<ul><li>1. Copy the payload after `#v=1.` from the URL</li><li>2. Replace `-` with `+` and `_` with `/`, then pad with `=` to multiple of 4</li><li>3. `base64 -d` to get the binary payload</li><li>4. Byte 0 = version (1), bytes 1-2 = filename length (LE), then filename, then mime length (LE), then mime, then file data, last 32 bytes = SHA-256 checksum, Save everything between the MIME and the checksum as your output file.</li></ul>
 <h3>Security</h3>
 <ul><li>All processing is local</li><li>No data uploaded</li><li>SHA-256 checksums</li></ul>
+<h3>Links</h3>
+<ul><li>undack.github.io/datacache</li><li>eok6gmwhglwf5qwzict6nhy4dabnksae7u4ekmrctufcddbq65kqrnqd.onion</li><li>datacache.losingfoc.us</li></ul>
 <h3>Version</h3>
 <p>Payload format v1</p>
 </div></div></section>
