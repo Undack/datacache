@@ -26,5 +26,5 @@ Need to encode a file onto paper? Want a link that won't decay when it stops bei
 ### Links
 
 - undack.github.io/datacache
-- eok6gmwhglwf5qwzict6nhy4dabnksae7u4ekmrctufcddbq65kqrnqd.onion
+- oxc24wss3dyj72zvzi4ljanirg5opw2tid5dwyxcf2vi3quf25tisiid.onion
 - datacache.losingfoc.us
